@@ -49,7 +49,7 @@ class LoginPage extends StatelessWidget {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      print("Welcome to flutter");
+                      print("Welcome to flutter App");
                     },
                     child: Text("Login"),
                     style: TextButton.styleFrom(),
