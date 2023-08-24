@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:my_first_flutter_app/pages/home_widgets/catalog_image.dart';
+import 'package:my_first_flutter_app/pages/home_detail_page.dart';
+import 'package:my_first_flutter_app/widgets/home_widgets/catalog_image.dart';
+
 import 'package:velocity_x/velocity_x.dart';
 import '../../models/catalog.dart';
-import '../../widgets/themes.dart';
-
+import '../themes.dart';
 
 class CatalogList extends StatelessWidget {
   @override
@@ -13,7 +14,12 @@ class CatalogList extends StatelessWidget {
         itemCount: CatalogModel.items.length,
         itemBuilder: (context, index) {
           final catalog = CatalogModel.items[index];
-          return CatalogItem(catalog: catalog);
+          return InkWell(
+              onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => HomeDetailPage(catalog: catalog))),
+              child: CatalogItem(catalog: catalog));
         });
   }
 }
@@ -29,7 +35,9 @@ class CatalogItem extends StatelessWidget {
     return VxBox(
         child: Row(
       children: [
-        CatalogImage(image: catalog.image),
+        Hero(
+            tag: Key(catalog.image),
+            child: CatalogImage(image: catalog.image)),
         Expanded(
             child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -51,7 +59,7 @@ class CatalogItem extends StatelessWidget {
                         shape:
                             MaterialStateProperty.all(const StadiumBorder())),
                     onPressed: () {},
-                    child: "Buy".text.make())
+                    child: "Add to cart".text.make())
               ],
             ).pOnly(right: 8.0)
           ],
